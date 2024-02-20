@@ -1,0 +1,17 @@
+name: "Snyk IaC Misconfiguration Checks"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Snyk to check IaC files for issues
+        continue-on-error: true
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
